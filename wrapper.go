@@ -295,5 +295,4 @@ func Monitor(arg0 interface{}, args ...interface{}) {
 		// Build a format string so that it will be similar to Sprint
 		Global.intLogf(lvl, fmt.Sprint(first)+strings.Repeat(" %v", len(args)), args...)
 	}
-	return nil
 }
