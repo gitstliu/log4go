@@ -276,3 +276,25 @@ func Critical(arg0 interface{}, args ...interface{}) error {
 	}
 	return nil
 }
+
+func Monitor(arg0 interface{}, args ...interface{}) error {
+	const (
+		lvl = MONITOR
+	)
+	switch first := arg0.(type) {
+	case string:
+		// Use the string as a format string
+		Global.intLogf(lvl, first, args...)
+		return errors.New(fmt.Sprintf(first, args...))
+	case func() string:
+		// Log the closure (no other arguments used)
+		str := first()
+		Global.intLogf(lvl, "%s", str)
+		return errors.New(str)
+	default:
+		// Build a format string so that it will be similar to Sprint
+		Global.intLogf(lvl, fmt.Sprint(first)+strings.Repeat(" %v", len(args)), args...)
+		return errors.New(fmt.Sprint(first) + fmt.Sprintf(strings.Repeat(" %v", len(args)), args...))
+	}
+	return nil
+}
