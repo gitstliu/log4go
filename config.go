@@ -294,5 +294,5 @@ func xmlToSocketLogWriter(filename string, props []xmlProperty, enabled bool) (S
 		return nil, true
 	}
 
-	return NewSocketLog
+	return NewSocketLogWriter(protocol, endpoint), true
 }
