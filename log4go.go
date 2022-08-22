@@ -76,11 +76,12 @@ const (
 	WARNING
 	ERROR
 	CRITICAL
+	MONITOR
 )
 
 // Logging level strings
 var (
-	levelStrings = [...]string{"FNST", "FINE", "DEBG", "TRAC", "INFO", "WARN", "EROR", "CRIT"}
+	levelStrings = [...]string{"FNST", "FINE", "DEBG", "TRAC", "INFO", "WARN", "EROR", "CRIT", "MNOR"}
 )
 
 func (l Level) String() string {
@@ -466,6 +467,26 @@ func (log Logger) Error(arg0 interface{}, args ...interface{}) error {
 func (log Logger) Critical(arg0 interface{}, args ...interface{}) error {
 	const (
 		lvl = CRITICAL
+	)
+	var msg string
+	switch first := arg0.(type) {
+	case string:
+		// Use the string as a format string
+		msg = fmt.Sprintf(first, args...)
+	case func() string:
+		// Log the closure (no other arguments used)
+		msg = first()
+	default:
+		// Build a format string so that it will be similar to Sprint
+		msg = fmt.Sprintf(fmt.Sprint(first)+strings.Repeat(" %v", len(args)), args...)
+	}
+	log.intLogf(lvl, msg)
+	return errors.New(msg)
+}
+
+func (log Logger) Monitor(arg0 interface{}, args ...interface{}) error {
+	const (
+		lvl = MONITOR
 	)
 	var msg string
 	switch first := arg0.(type) {
