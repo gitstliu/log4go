@@ -279,7 +279,7 @@ func Critical(arg0 interface{}, args ...interface{}) error {
 
 func Monitor(arg0 interface{}, args ...interface{}) {
 	const (
-		lvl = INFO
+		lvl = MONITOR
 	)
 	switch first := arg0.(type) {
 	case string:
