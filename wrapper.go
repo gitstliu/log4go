@@ -277,7 +277,7 @@ func Critical(arg0 interface{}, args ...interface{}) error {
 	return nil
 }
 
-func Monitor(arg0 interface{}, args ...interface{}) error {
+func Monitor(arg0 interface{}, args ...interface{}) {
 	const (
 		lvl = MONITOR
 	)
@@ -294,7 +294,6 @@ func Monitor(arg0 interface{}, args ...interface{}) error {
 	default:
 		// Build a format string so that it will be similar to Sprint
 		Global.intLogf(lvl, fmt.Sprint(first)+strings.Repeat(" %v", len(args)), args...)
-		return errors.New(fmt.Sprint(first) + fmt.Sprintf(strings.Repeat(" %v", len(args)), args...))
 	}
 	return nil
 }
