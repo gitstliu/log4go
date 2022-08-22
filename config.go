@@ -93,6 +93,8 @@ func (log Logger) LoadConfiguration(filename string) {
 			lvl = ERROR
 		case "CRITICAL":
 			lvl = CRITICAL
+		case "MONITOR":
+			lvl = MONITOR
 		default:
 			fmt.Fprintf(os.Stderr, "LoadConfiguration: Error: Required child <%s> for filter has unknown value in %s: %s\n", "level", filename, xmlfilt.Level)
 			bad = true
@@ -292,5 +294,5 @@ func xmlToSocketLogWriter(filename string, props []xmlProperty, enabled bool) (S
 		return nil, true
 	}
 
-	return NewSocketLogWriter(protocol, endpoint), true
+	return NewSocketLog
 }
