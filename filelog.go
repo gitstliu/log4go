@@ -193,6 +193,10 @@ func (w *FileLogWriter) intRotate() error {
 	return nil
 }
 
+func (w *FileLogWriter) GetFilename() string {
+	return w.filename
+}
+
 // Set the logging format (chainable).  Must be called before the first log
 // message is written.
 func (w *FileLogWriter) SetFormat(format string) *FileLogWriter {
