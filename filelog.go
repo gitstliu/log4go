@@ -200,6 +200,10 @@ func (w *FileLogWriter) SetFormat(format string) *FileLogWriter {
 	return w
 }
 
+func (w *FileLogWriter) GetFormat() string {
+	return w.format
+}
+
 // Set the logfile header and footer (chainable).  Must be called before the first log
 // message is written.  These are formatted similar to the FormatLogRecord (e.g.
 // you can use %D and %T in your header/footer for date and time).
@@ -211,12 +215,20 @@ func (w *FileLogWriter) SetHeadFoot(head, foot string) *FileLogWriter {
 	return w
 }
 
+func (w *FileLogWriter) GetHeadFoot() (string, string) {
+	return w.header, w.trailer
+}
+
 // Set rotate at linecount (chainable). Must be called before the first log
 // message is written.
 func (w *FileLogWriter) SetRotateLines(maxlines int) *FileLogWriter {
 	//fmt.Fprintf(os.Stderr, "FileLogWriter.SetRotateLines: %v\n", maxlines)
 	w.maxlines = maxlines
 	return w
+}
+
+func (w *FileLogWriter) GetRotateLines() int {
+	return w.maxlines
 }
 
 // Set rotate at size (chainable). Must be called before the first log message
@@ -227,6 +239,10 @@ func (w *FileLogWriter) SetRotateSize(maxsize int) *FileLogWriter {
 	return w
 }
 
+func (w *FileLogWriter) GetRotateSize() int {
+	return w.maxsize
+}
+
 // Set rotate daily (chainable). Must be called before the first log message is
 // written.
 func (w *FileLogWriter) SetRotateDaily(daily bool) *FileLogWriter {
@@ -235,11 +251,19 @@ func (w *FileLogWriter) SetRotateDaily(daily bool) *FileLogWriter {
 	return w
 }
 
+func (w *FileLogWriter) GetRotateDaily() bool {
+	return w.daily
+}
+
 // Set max backup files. Must be called before the first log message
 // is written.
 func (w *FileLogWriter) SetRotateMaxBackup(maxbackup int) *FileLogWriter {
 	w.maxbackup = maxbackup
 	return w
+}
+
+func (w *FileLogWriter) GetRotateMaxBackup() int {
+	return w.maxbackup
 }
 
 // SetRotate changes whether or not the old logs are kept. (chainable) Must be
@@ -250,6 +274,10 @@ func (w *FileLogWriter) SetRotate(rotate bool) *FileLogWriter {
 	//fmt.Fprintf(os.Stderr, "FileLogWriter.SetRotate: %v\n", rotate)
 	w.rotate = rotate
 	return w
+}
+
+func (w *FileLogWriter) GetRotate() bool {
+	return w.rotate
 }
 
 // NewXMLLogWriter is a utility method for creating a FileLogWriter set up to
